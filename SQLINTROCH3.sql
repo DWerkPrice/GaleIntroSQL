@@ -27,8 +27,13 @@ ORDER BY PlanName;
 
 
 
-SELECT * FROM ServicePlans WHERE PlanDescription Like '%min%'; */
+SELECT * FROM ServicePlans WHERE PlanDescription Like '%min%'; 
 
 SELECT * FROM ServicePlans
 WHERE PlanID LIKE "D"
-+9,
+
+SELECT * FROM ServicePlans
+WHERE PlanDescription LIKE '%min%';*/
+
+
+SELECT * FROM ServicePlans WHERE PlanName Like 'I%';
