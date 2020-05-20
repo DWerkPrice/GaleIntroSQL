@@ -1,0 +1,70 @@
+Lesson 5: supplemental Materials
+Aggregate Functions in SQL 
+https://www.techonthenet.com/sql/group_by.php 
+This site provides a description of each aggregate function and how it's used. 
+
+I'm using Microsoft SQL Server Management Studio 2014 and am having trouble returning a normal US date format from the query. I've researched trying to convert data types from datetime in the table to MM/DD/YYYY, but it shows "1999-11-11 00:00:00.000" so can't figure it out. Can you help? Thanks! Bill
+
+ Reply
+6 Replies – 5 New  
+Reply
+Report as Inappropriate
+Posted May 3, 2020 8:53 AM 
+
+
+Posted by Cecelia Allison
+(Instructor)
+Bookmark Post
+
++Bill D 
+Hello Bill
+You can use the CONVERT () function to accomplish this. 
+For example: 
+SELECT CustomerID, CONVERT(CHAR(10), MAX (OrderDate), 101) AS LastOrder
+FROM Orders 
+WHERE CustomerID IN (1,2)
+GROUP BY CustomerID;
+Using the CONVERT Function: 
+CONVERT (data_type[(length)], expression [, style]) 
+CONVERT () converts an expression of one data type to another. 
+Following are the ARGUMENTS for the CONVERT () Function: 
+Expression: 
+Is any valid Microsoft® SQL Server™ expression. 
+Data_type: 
+Is the target system-supplied data type. User-defined data types cannot be used. 
+Length: 
+Is an optional parameter of nchar, nvarchar, char, varchar, binary, or varbinary data types. 
+Style: 
+Is the style of date format you want when converting datetime or smalldatetime data to character data (nchar, nvarchar, char, varchar, nchar, or nvarchar data types), or the string format when converting float, real, money, or smallmoney data to character data (nchar, nvarchar, char, varchar, nchar, or nvarchar data types). 
+The 101 in the command is what is called a style ... 
+CONVERT(CHAR(10), MAX (OrderDate), 101) 
+Style 1 returns mm/dd/yy where Style 101 return mm/dd/yyyy 
+If you just wanted the time and no date, you would use style 108 as in ... 
+
+CONVERT(CHAR(10), MAX (OrderDate), 108) 
+         
+Style ID    Style Type
+ 
+0 or 100      mon dd yyyy hh:miAM (or PM) 
+101         mm/dd/yyyy 
+102         yy.mm.dd 
+103         dd/mm/yy 
+104         dd.mm.yy 
+105         dd-mm-yy 
+106         dd mon yy 
+107         Mon dd, yy 
+108         hh:mm:ss 
+9 or 109      mon dd yyyy hh:mi:ss:mmmAM (or PM) 
+110         mm-dd-yy 
+111         yy/mm/dd 
+112         yymmdd 
+13 or 113      dd mon yyyy hh:mm:ss:mmm(24h) 
+114         hh:mi:ss:mmm(24h) 
+20 or 120      yyyy-mm-dd hh:mi:ss(24h) 
+21 or 121      yyyy-mm-dd hh:mi:ss.mmm(24h) 
+126         yyyy-mm-dd Thh:mm:ss.mmm(no spaces) 
+130         dd mon yyyy hh:mi:ss:mmmAM 
+131         dd/mm/yy hh:mi:ss:mmmAM 
+Good luck in the course.
+Thank you for posting Bill.
+Cecelia
